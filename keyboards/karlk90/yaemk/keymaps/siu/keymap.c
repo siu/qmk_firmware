@@ -3,10 +3,11 @@
 
 enum Layers {
     _BASE = 0,
-    _SYM  = 1,
-    _NAV  = 2,
-    _FN   = 3,
-    _RGB  = 4,
+    _BASE2 = 1,
+    _SYM  = 2,
+    _NAV  = 3,
+    _FN   = 4,
+    _RGB  = 5,
 };
 
 enum Encoder {
@@ -15,6 +16,7 @@ enum Encoder {
 };
 
 #define LO_ENT LT(_SYM, KC_ENT)
+#define CTL_SPC MT(MOD_LTCL, KC_SPC)
 
 /*
   [_QWERTY] = LAYOUT_5x6(
@@ -55,38 +57,45 @@ enum Encoder {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_BASE] = LAYOUT( \
      KC_GRV         , KC_1          , KC_2          , KC_3          , KC_4          , KC_5          , KC_AUDIO_VOL_DOWN,                           KC_AUDIO_VOL_UP  , KC_6          , KC_7          , KC_8          , KC_9          , KC_0          , KC_CAPS       ,\
-     KC_TAB         , KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          , KC_LBRC       ,                                 TO(_FN)       , KC_Y          , KC_U          , KC_I          , KC_O          , KC_P          , KC_BSLS       ,\
-     KC_ESC         , KC_A          , KC_S          , KC_D          , KC_F          , KC_G          , KC_MINS       ,                                 TO(_NAV)      , KC_H          , KC_J          , KC_K          , KC_L          , KC_SCLN       , KC_QUOT       ,\
-     KC_LSPO        , KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          , KC_LGUI       , KC_LALT       , TO(_SYM)      , LO_ENT        , KC_N          , KC_M          , KC_COMM       , KC_DOT        , KC_SLSH       , KC_RSPC       ,\
-                                                      TO(_RGB)      , KC_LCTRL      , KC_SPC        , KC_LGUI       , KC_DEL        , KC_BSPC       , LO_ENT        , LO_ENT        , MO(_SYM)      , TO(_RGB) \
+     KC_TAB         , KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          , _______       ,                                 _______       , KC_Y          , KC_U          , KC_I          , KC_O          , KC_P          , KC_BSLS       ,\
+     KC_ESC         , KC_A          , KC_S          , KC_D          , KC_F          , KC_G          , MO(_FN)       ,                                 MO(_FN)       , KC_H          , KC_J          , KC_K          , KC_L          , KC_SCLN       , KC_QUOT       ,\
+     KC_LSPO        , KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          , _______       , TG(_FN)       , TG(_RGB)      , _______       , KC_N          , KC_M          , KC_COMM       , KC_DOT        , KC_SLSH       , KC_RSPC       ,\
+                                                      DF(_BASE)     , KC_LGUI       , KC_LCTRL      , KC_SPC        , KC_TAB        , KC_BSPC       , KC_ENT        , MO(_SYM)      , MO(_NAV)      , DF(_BASE2) \
+  ),
+   [_BASE2] = LAYOUT( \
+     KC_GRV         , KC_1          , KC_2          , KC_3          , KC_4          , KC_5          , KC_AUDIO_VOL_DOWN,                           KC_AUDIO_VOL_UP  , KC_6          , KC_7          , KC_8          , KC_9          , KC_0          , KC_CAPS       ,\
+     KC_TAB         , KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          , KC_LBRC       ,                                 MO(_FN)       , KC_Y          , KC_U          , KC_I          , KC_O          , KC_P          , KC_BSLS       ,\
+     KC_ESC         , KC_A          , KC_S          , KC_D          , KC_F          , KC_G          , KC_MINS       ,                                 TT(_NAV)      , KC_H          , KC_J          , KC_K          , KC_L          , KC_SCLN       , KC_QUOT       ,\
+     KC_LSPO        , KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          , _______       , KC_LALT       , TO(_RGB)      , _______       , KC_N          , KC_M          , KC_COMM       , KC_DOT        , KC_SLSH       , KC_RSPC       ,\
+                                                      DF(_BASE)     , KC_LCTRL      , KC_SPC        , KC_LGUI       , KC_TAB        , KC_BSPC       , LO_ENT        , LO_ENT        , TO(_SYM)      , DF(_BASE2) \
   ),
    [_SYM] = LAYOUT( \
     KC_F12          , KC_F1         , KC_F2         , KC_F3         , KC_F4         , KC_F5         , _______       ,                                 _______       , KC_F6         , KC_F7         , KC_F8         , KC_F9         , KC_F10        , KC_F11        ,\
     _______         , KC_1          , KC_2          , KC_3          , KC_4          , KC_5          , _______       ,                                 _______       , KC_6          , KC_7          , KC_8          , KC_9          , KC_0          , _______       ,\
     _______         , KC_LT         , KC_LPRN       , KC_LCBR       , KC_LBRC       , KC_MINUS      , _______       ,                                 _______       , KC_PLUS       , KC_RBRC       , KC_RCBR       , KC_RPRN       , KC_GT         , _______       ,\
     _______         , _______       , _______       , _______       , _______       , KC_UNDS       , _______       , _______       , _______       , _______       , KC_EQUAL      , _______       , _______       , _______       , _______       , _______       ,\
-                                                      _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , TO(_BASE)     , _______ \
+                                                      _______       , _______       , _______       , _______       , KC_DEL        , _______       , _______       , _______       , _______       , _______ \
   ),
    [_NAV] = LAYOUT( \
     _______         , _______       , _______       , _______       , _______       , _______       , _______       ,                                 _______       , _______       , KC_0      	, _______       , _______       , KC_ASTR       , KC_SLSH       ,\
     _______         , _______       , KC_PGUP       , KC_UP         , KC_PGDN       , _______       , _______       ,                                 _______       , _______       , KC_7          , KC_8          , KC_9          , KC_PLUS       , KC_MINS       ,\
     _______         , KC_HOME       , KC_LEFT       , KC_DOWN       , KC_RIGHT      , KC_END        , _______       ,                                 _______       , _______       , KC_4          , KC_5          , KC_6          , KC_COMM       , KC_DOT        ,\
     _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , KC_1          , KC_2          , KC_3          , KC_SCLN       , _______       ,\
-                                                      _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , TO(_BASE)     , _______ \
+                                                      _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______ \
   ),
    [_FN] = LAYOUT( \
     _______         , _______       , KC_ACL0       , KC_ACL1       , KC_ACL2       , RESET         , _______       ,                                 _______       , RESET         , KC_F10        , KC_F11        , KC_F12        , _______       , _______       ,\
     _______         , _______       , KC_BTN1       , KC_MS_U       , KC_BTN2       , KC_PSCR       , _______       ,                                 _______       , _______       , KC_F7         , KC_F8         , KC_F9         , _______       , _______       ,\
     _______         , _______       , KC_MS_L       , KC_MS_D       , KC_MS_R       , _______       , _______       ,                                 _______       , _______       , KC_F4         , KC_F5         , KC_F6         , _______       , _______       ,\
     _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , KC_F1         , KC_F2         , KC_F3         , _______       , _______       ,\
-                                                      _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , TO(_BASE)     , _______ \
+                                                      _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______ \
   ),
   [_RGB] = LAYOUT( \
     _______         , _______       , _______       , _______       , _______       , _______       , _______       ,                                 _______       , _______       , RGB_TOG       , RGB_M_SW      , _______       , _______       , _______       ,\
     _______         , _______       , _______       , _______       , _______       , _______       , _______       ,                                 _______       , _______       , RGB_HUI       , RGB_HUD       , RGB_SAI       , RGB_SAD       , _______       ,\
     _______         , _______       , _______       , _______       , _______       , _______       , _______       ,                                 _______       , _______       , RGB_MOD       , RGB_RMOD      , RGB_SPI       , RGB_SPD       , _______       ,\
     _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , RGB_VAI       , RGB_VAD       , _______       , _______       , _______       ,\
-                                                      _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , TO(_BASE)     , _______ \
+                                                      _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______ \
   ),
 };
 
