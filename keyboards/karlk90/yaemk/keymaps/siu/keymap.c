@@ -218,6 +218,12 @@ void render_display(void) {
             } else {
                 oled_write_ln("QWERTY", false);
             }
+            layer_state_t current_default_layer = get_highest_layer(default_layer_state);
+            switch (current_default_layer)
+            {
+                case (_BASE): oled_write_ln("BASE", false); break;
+                case (_BASE2): oled_write_ln("BASE2", false); break;
+            }
             break;
     }
 }
