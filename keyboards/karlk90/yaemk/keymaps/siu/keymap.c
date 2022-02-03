@@ -10,6 +10,11 @@ enum Layers {
     _ADJUST = 4,
 };
 
+enum custom_keycodes {
+  BASE = SAFE_RANGE,
+  BASE2,
+};
+
 enum Encoder {
     _ENCODER_LEFT  = 0,
     _ENCODER_RIGHT = 1,
@@ -59,14 +64,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB         , KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          , KC_NO         ,                                 KC_NO         , KC_Y          , KC_U          , KC_I          , KC_O          , KC_P          , KC_BSLS       ,\
      KC_ESC         , KC_A          , KC_S          , KC_D          , KC_F          , KC_G          , KC_NO         ,                                 KC_NO         , KC_H          , KC_J          , KC_K          , KC_L          , KC_SCLN       , KC_QUOT       ,\
      KC_LSPO        , KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          , _______       , TG(_ADJUST)   , TG(_ADJUST)   , _______       , KC_N          , KC_M          , KC_COMM       , KC_DOT        , KC_SLSH       , KC_RSPC       ,\
-                                                      DF(_BASE)     , KC_LGUI       , KC_LCTRL      , KC_SPC        , KC_TAB        , KC_BSPC       , KC_ENT        , MO(_LOWER)    , MO(_RAISE)    , DF(_BASE2) \
+                                                      BASE          , KC_LGUI       , KC_LCTRL      , KC_SPC        , KC_TAB        , KC_BSPC       , KC_ENT        , MO(_LOWER)    , MO(_RAISE)    , BASE2 \
   ),
    [_BASE2] = LAYOUT( \
      KC_GRV         , KC_1          , KC_2          , KC_3          , KC_4          , KC_5          , KC_NO         ,                                 KC_NO         , KC_6          , KC_7          , KC_8          , KC_9          , KC_0          , KC_CAPS       ,\
      KC_TAB         , KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          , KC_NO         ,                                 KC_NO         , KC_Y          , KC_U          , KC_I          , KC_O          , KC_P          , KC_BSLS       ,\
      KC_ESC         , KC_A          , KC_S          , KC_D          , KC_F          , KC_G          , KC_NO         ,                                 KC_NO         , KC_H          , KC_J          , KC_K          , KC_L          , KC_SCLN       , KC_QUOT       ,\
      KC_LSPO        , KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          , _______       , TG(_ADJUST)   , TG(_ADJUST)   , _______       , KC_N          , KC_M          , KC_COMM       , KC_DOT        , KC_SLSH       , KC_RSPC       ,\
-                                                      DF(_BASE)     , KC_LGUI       , MO(_LOWER)    , KC_SPC        , CTL_TAB       , KC_BSPC       , KC_ENT        , MO(_RAISE)    , KC_RALT       , DF(_BASE2) \
+                                                      BASE          , KC_LGUI       , MO(_LOWER)    , KC_SPC        , CTL_TAB       , KC_BSPC       , KC_ENT        , MO(_RAISE)    , KC_RALT       , BASE2 \
   ),
    [_LOWER] = LAYOUT( \
     KC_F12          , KC_F1         , KC_F2         , KC_F3         , KC_F4         , KC_F5         , _______       ,                                 _______       , KC_F6         , KC_F7         , KC_F8         , KC_F9         , KC_F10        , KC_F11        ,\
@@ -83,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______ \
   ),
    [_ADJUST] = LAYOUT( \
-    _______         , _______       , KC_ACL0       , KC_ACL1       , KC_ACL2       , RESET         , _______       ,                                 _______       , _______       , RGB_TOG       , RGB_M_SW      , _______       , _______       , _______       ,\
+    _______         , _______       , KC_ACL0       , KC_ACL1       , KC_ACL2       , _______       , RESET         ,                                 EEP_RST       , _______       , RGB_TOG       , RGB_M_SW      , _______       , _______       , _______       ,\
     _______         , _______       , KC_BTN1       , KC_MS_U       , KC_BTN2       , KC_PSCR       , _______       ,                                 _______       , _______       , RGB_HUI       , RGB_HUD       , RGB_SAI       , RGB_SAD       , _______       ,\
     _______         , _______       , KC_MS_L       , KC_MS_D       , KC_MS_R       , _______       , _______       ,                                 _______       , _______       , RGB_MOD       , RGB_RMOD      , RGB_SPI       , RGB_SPD       , _______       ,\
     _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , RGB_VAI       , RGB_VAD       , _______       , _______       , _______       ,\
@@ -95,6 +100,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case BASE:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_BASE);
+            }
+            return false;
+            break;
+        case BASE2:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_BASE2);
+            }
+            return false;
+            break;
+    }
+    return true;
 }
 
 #if defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
