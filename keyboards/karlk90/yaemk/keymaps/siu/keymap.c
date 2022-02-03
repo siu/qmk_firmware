@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
-#include "keymap_us_international.h"
+
+#include <stdio.h>
 
 enum Layers {
     _BASE   = 0,
