@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______ \
   ),
    [_ADJUST] = LAYOUT( \
-    _______         , _______       , KC_ACL0       , KC_ACL1       , KC_ACL2       , _______       , RESET         ,                                 EEP_RST       , _______       , RGB_TOG       , RGB_M_SW      , _______       , _______       , _______       ,\
+    _______         , _______       , KC_ACL0       , KC_ACL1       , KC_ACL2       , _______       , Q_RESET       ,                                 EEP_RST       , _______       , RGB_TOG       , RGB_M_SW      , _______       , _______       , _______       ,\
     _______         , _______       , KC_BTN1       , KC_MS_U       , KC_BTN2       , KC_PSCR       , _______       ,                                 _______       , _______       , RGB_HUI       , RGB_HUD       , RGB_SAI       , RGB_SAD       , _______       ,\
     _______         , _______       , KC_MS_L       , KC_MS_D       , KC_MS_R       , _______       , _______       ,                                 _______       , _______       , RGB_MOD       , RGB_RMOD      , RGB_SPI       , RGB_SPD       , _______       ,\
     _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , RGB_VAI       , RGB_VAD       , _______       , _______       , _______       ,\
