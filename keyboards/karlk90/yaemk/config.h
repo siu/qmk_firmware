@@ -1,10 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* USB CONFIG */
-#define FORCE_NKRO
-
 /* MATRIX CONFIG */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
@@ -16,7 +11,7 @@
     { A2, A7, B0, B1, B2, B13, B14, B15 }
 #define DIODE_DIRECTION COL2ROW
 #define DEBUG_MATRIX_SCAN_RATE
-#define DEBOUNCE 10
+#define DEBOUNCE 5
 
 /* CAPS WORD CONFIG */
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
@@ -34,10 +29,19 @@
 
 /* SPLIT CONFIG */
 #define SPLIT_HAND_PIN C13
-#define USB_VBUS_PIN A9
 #define SPLIT_LAYER_STATE_ENABLE
-#define FORCED_SYNC_THROTTLE_MS 500
 #define SPLIT_TRANSPORT_MIRROR
+
+#if 0
+// VBUS detection using the ideal diode circuit is notorously buggy depending
+// on the op-amp used. Therefore we'll resort to the watchdog implementation by
+// default. If you're board sucessfully works with VBUS detection change this
+// condition.
+#    define USB_VBUS_PIN A9
+#else
+#    define SPLIT_WATCHDOG_ENABLE
+#endif
+
 
 /* CRC DRIVER */
 #define CRC8_USE_TABLE
@@ -94,15 +98,15 @@
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+#define RGB_MATRIX_LED_COUNT DRIVER_LED_TOTAL
 #define RGB_MATRIX_LED_PROCESS_LIMIT DRIVER_LED_TOTAL / 10
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #define RGB_MATRIX_SPLIT \
     { 40, 40 }
 
 /* WS2812 DRIVER */
-#define RGBLED_NUM DRIVER_LED_TOTAL
-#define DRIVER_LED_TOTAL 80
 #define FASTLED_SCALE8_FIXED 1
+#define DRIVER_LED_TOTAL 80
 #define RGB_DI_PIN A10
 #define WS2812_TRST_US 80
 #define WS2812_PWM_TARGET_PERIOD 800000
@@ -117,8 +121,6 @@
 #define SERIAL_USART_RX_PIN B11
 #define SERIAL_USART_DRIVER SD3
 #define SERIAL_USART_FULL_DUPLEX
-#define SERIAL_USART_TIMEOUT 5
-#define SERIAL_USART_CR2 0x0  // 1 stop bit is enough
 
 /* I2C DRIVER */
 #define EEPROM_I2C_CAT24C512
@@ -140,16 +142,13 @@
 #define OLED_IC OLED_IC_SH1107
 #define OLED_BRIGHTNESS 255
 #define OLED_TIMEOUT 15000
-#define OLED_UPDATE_INTERVAL 200
 
 /* TAPPING CONFIG */
 #define TAPPING_TERM 160
 #define TAPPING_TOGGLE 2
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP 0
 #define IGNORE_MOD_TAP_INTERRUPT
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-#define LAYER_STATE_8BIT
 
 /* MOUSEKEY CONFIG */
 #undef MOUSEKEY_DELAY

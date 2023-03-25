@@ -3,9 +3,39 @@
     "url": "https://karlk90.github.io/yaemk-split-kb/",
     "maintainer": "karlk90",
     "manufacturer": "karlk90",
+    "build": {
+        "lto": true,
+        "debounce_type": "asym_eager_defer_pk"
+    },
+    "encoder": {
+        "enabled": true
+    },
     "usb": {
         "vid": "0x4B4B",
         "pid": "0x5941",
-        "device_version": "1.2.0"
+        "device_version": "1.2.0",
+        "force_nkro": true
+    },
+    "caps_word": {
+        "enabled": true
+    },
+    "mouse_key": {
+        "enabled": true
+    },
+    "rgb_matrix": {
+        "enabled": true,
+        "driver": "WS2812"
+    },
+    "features": {
+        "console": false,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "split": {
+        "enabled": true,
+        "transport": {
+            "watchdog": true
+        }
     }
 }

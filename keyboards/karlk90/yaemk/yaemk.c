@@ -75,7 +75,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 /* Fast Matrix Port Scanning */
-
 #include "quantum.h"
 #include <stdint.h>
 #include <stdbool.h>

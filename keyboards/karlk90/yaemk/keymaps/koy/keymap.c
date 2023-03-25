@@ -44,7 +44,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       _______       , _______       , _______       , _______       , _______       , _______       , _______       , KC_0          , _______       , _______ \
   ),
    [_FN] = LAYOUT( \
-    _______         , _______       , KC_ACL0       , KC_ACL1       , KC_ACL2       , RESET         , _______       ,                                 _______       , RESET         , KC_F10        , KC_F11        , KC_F12        , _______       , _______       ,\
+    _______         , _______       , KC_ACL0       , KC_ACL1       , KC_ACL2       , QK_BOOT       , _______       ,                                 _______       , QK_BOOT       , KC_F10        , KC_F11        , KC_F12        , _______       , _______       ,\
     _______         , _______       , KC_BTN1       , KC_MS_U       , KC_BTN2       , KC_PSCR       , _______       ,                                 _______       , _______       , KC_F7         , KC_F8         , KC_F9         , _______       , _______       ,\
     _______         , _______       , KC_MS_L       , KC_MS_D       , KC_MS_R       , _______       , _______       ,                                 _______       , _______       , KC_F4         , KC_F5         , KC_F6         , _______       , _______       ,\
     _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , KC_F1         , KC_F2         , KC_F3         , _______       , _______       ,\
@@ -83,19 +83,6 @@ bool caps_word_press_user(uint16_t keycode) {
             return false;  // Deactivate Caps Word.
     }
 }
-
-#if defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case LSFT_T(KC_SPC):
-            return false;
-        case RSFT_T(KC_SPC):
-            return false;
-        default:
-            return true;
-    }
-}
-#endif
 
 #if defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
