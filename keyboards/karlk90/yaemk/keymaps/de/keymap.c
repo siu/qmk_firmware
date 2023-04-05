@@ -60,6 +60,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE]  = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D), ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
+    [_SYM]   = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_NAV]   = { ENCODER_CCW_CW(KC_WH_R, KC_WH_L), ENCODER_CCW_CW(KC_WH_R, KC_WH_L) },
+    [_FN]    = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
+    [_RGB]   = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
+    [_GAME]  = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) }
+};
+
 // clang-format on
 
 bool caps_word_press_user(uint16_t keycode) {
@@ -95,84 +104,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
         default:
             return false;
     }
-}
-#endif
-
-#if defined(ENCODER_ENABLE)
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    layer_state_t current_state = get_highest_layer(layer_state);
-
-    if (index == _ENCODER_LEFT) {
-        if (clockwise) {
-            switch (current_state) {
-                case _BASE:
-                default:
-                    tap_code(KC_MS_WH_DOWN);
-                    break;
-                case _NAV:
-                    tap_code(KC_MS_WH_RIGHT);
-                    break;
-                case _FN:
-                    tap_code_delay(KC_AUDIO_VOL_UP, 10);
-                    break;
-                case _RGB:
-                    tap_code(KC_PGUP);
-                    break;
-            }
-        } else {
-            switch (current_state) {
-                case _BASE:
-                default:
-                    tap_code(KC_MS_WH_UP);
-                    break;
-                case _NAV:
-                    tap_code(KC_MS_WH_LEFT);
-                    break;
-                case _FN:
-                    tap_code_delay(KC_AUDIO_VOL_DOWN, 10);
-                    break;
-                case _RGB:
-                    tap_code(KC_PGDN);
-                    break;
-            }
-        }
-    } else if (index == _ENCODER_RIGHT) {
-        if (clockwise) {
-            switch (current_state) {
-                case _BASE:
-                default:
-                    tap_code(KC_MS_WH_DOWN);
-                    break;
-                case _NAV:
-                    tap_code(KC_MS_WH_RIGHT);
-                    break;
-                case _FN:
-                    tap_code_delay(KC_MEDIA_NEXT_TRACK, 10);
-                    break;
-                case _RGB:
-                    tap_code(KC_PGUP);
-                    break;
-            }
-        } else {
-            switch (current_state) {
-                case _BASE:
-                default:
-                    tap_code(KC_MS_WH_UP);
-                    break;
-                case _NAV:
-                    tap_code(KC_MS_WH_LEFT);
-                    break;
-                case _FN:
-                    tap_code_delay(KC_MEDIA_PREV_TRACK, 10);
-                    break;
-                case _RGB:
-                    tap_code(KC_PGDN);
-                    break;
-            }
-        }
-    }
-
-    return false;
 }
 #endif
 
