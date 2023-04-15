@@ -50,9 +50,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                       _______       , _______       , _______       , _______       , _______       , _______        \
    ),
    [_ADJUST] = LAYOUT_split_3x6_3( \
-    _______         , _______       , KC_BTN1       , KC_MS_U       , KC_BTN2       , KC_PSCR                                       , _______       , RGB_HUI       , RGB_HUD       , RGB_SAI       , RGB_SAD       , _______       ,\
-    _______         , _______       , KC_MS_L       , KC_MS_D       , KC_MS_R       , _______                                       , _______       , RGB_MOD       , RGB_RMOD      , RGB_SPI       , RGB_SPD       , _______       ,\
-    _______         , _______       , _______       , _______       , _______       , _______                                       , _______       , RGB_VAI       , RGB_VAD       , _______       , _______       , _______       ,\
+    _______         , _______       , KC_BTN1       , KC_MS_U       , KC_BTN2       , KC_PSCR                                       , KC_F12        , KC_F7         , KC_F8         , KC_F9         , _______       , _______       ,\
+    _______         , _______       , KC_MS_L       , KC_MS_D       , KC_MS_R       , _______                                       , KC_F11        , KC_F4         , KC_F5         , KC_F6         , _______       , _______       ,\
+    _______         , _______       , _______       , _______       , _______       , _______                                       , KC_F10        , KC_F1         , KC_F2         , KC_F3         , _______       , _______       ,\
                                                                       _______       , _______       , _______       , _______       , _______       , _______        \
   ),
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
