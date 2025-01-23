@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       BASE          , KC_LGUI       , MO(_LOWER)    , KC_SPC        , CTL_TAB       , KC_BSPC       , KC_ENT        , MO(_RAISE)    , KC_RALT       , BASE2 \
   ),
    [_LOWER] = LAYOUT( \
-    _______         , _______       , _______       , _______       , _______       , _______       , _______       ,                                 _______       , _______       , _______      	, _______       , _______       , KC_ASTR       , KC_SLSH       ,\
+    _______         , _______       , _______       , _______       , _______       , _______       , _______       ,                                 _______       , _______       , _______      	, _______       , _______       , KC_ASTR       , KC_DEL        ,\
     _______         , _______       , KC_PGUP       , KC_UP         , KC_PGDN       , _______       , _______       ,                                 _______       , KC_COLN       , KC_7          , KC_8          , KC_9          , KC_PPLS       , KC_PAST       ,\
     _______         , KC_HOME       , KC_LEFT       , KC_DOWN       , KC_RIGHT      , KC_END        , _______       ,                                 _______       , KC_EQL        , KC_4          , KC_5          , KC_6          , KC_PMNS       , KC_PSLS       ,\
     _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , KC_0          , KC_1          , KC_2          , KC_3          , KC_DOT        , KC_DEL        ,\
