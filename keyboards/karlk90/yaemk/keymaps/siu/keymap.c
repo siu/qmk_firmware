@@ -8,6 +8,7 @@ enum Layers {
     _LOWER  = 2,
     _RAISE  = 3,
     _ADJUST = 4,
+    _DEVSYM = 5,
 };
 
 enum custom_keycodes {
@@ -23,6 +24,8 @@ enum Encoder {
 #define CTL_TAB MT(MOD_LCTL, KC_TAB)
 #define LO_SPC LT(_LOWER, KC_SPC)
 #define RS_ENT LT(_RAISE, KC_ENT)
+#define SYM_L LT(_DEVSYM, KC_L)
+#define SYM_S LT(_DEVSYM, KC_S)
 
 // clang-format off
 
@@ -30,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_BASE] = LAYOUT( \
      KC_GRV         , KC_1          , KC_2          , KC_3          , KC_4          , KC_5          , KC_NO         ,                                 KC_NO         , KC_6          , KC_7          , KC_8          , KC_9          , KC_0          , KC_CAPS       ,\
      KC_GRV         , KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          , KC_LBRC       ,                                 KC_RBRC       , KC_Y          , KC_U          , KC_I          , KC_O          , KC_P          , KC_BSLS       ,\
-     KC_ESC         , KC_A          , KC_S          , KC_D          , KC_F          , KC_G          , KC_MINS       ,                                 KC_EQL        , KC_H          , KC_J          , KC_K          , KC_L          , KC_SCLN       , KC_QUOT       ,\
+     KC_ESC         , KC_A          , SYM_S         , KC_D          , KC_F          , KC_G          , KC_MINS       ,                                 KC_EQL        , KC_H          , KC_J          , KC_K          , SYM_L         , KC_SCLN       , KC_QUOT       ,\
      SC_LSPO        , KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          , _______       , TG(_ADJUST)   , TG(_ADJUST)   , _______       , KC_N          , KC_M          , KC_COMM       , KC_DOT        , KC_SLSH       , SC_RSPC       ,\
                                                       BASE          , KC_LGUI       , LO_SPC        , CTL_TAB       , KC_NO         , KC_NO         , KC_BSPC       , RS_ENT        , KC_RALT    , BASE2 \
   ),
@@ -45,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______         , _______       , _______       , _______       , _______       , _______       , _______       ,                                 _______       , _______       , _______      	, _______       , _______       , KC_ASTR       , KC_DEL        ,\
     _______         , _______       , KC_PGUP       , KC_UP         , KC_PGDN       , _______       , _______       ,                                 _______       , KC_COLN       , KC_7          , KC_8          , KC_9          , KC_PPLS       , KC_PAST       ,\
     _______         , KC_HOME       , KC_LEFT       , KC_DOWN       , KC_RIGHT      , KC_END        , _______       ,                                 _______       , KC_EQL        , KC_4          , KC_5          , KC_6          , KC_PMNS       , KC_PSLS       ,\
-    _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , KC_0          , KC_1          , KC_2          , KC_3          , KC_DOT        , KC_DEL        ,\
+    _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , KC_0          , KC_1          , KC_2          , KC_3          , KC_DOT        , KC_SLSH       ,\
                                                       _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , KC_SPC        , _______ \
   ),
    [_RAISE] = LAYOUT( \
@@ -62,6 +65,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______         , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , RGB_VAI       , RGB_VAD       , _______       , _______       , _______       ,\
                                                       _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______ \
   ),
+/*
+` ~ # & |    ^ { } ( )
+! _ : = $    @ [ ] _ ;
+% ? * + \    / - < > "
+*/
+   [_DEVSYM] = LAYOUT( \
+    _______         , _______       , _______       , _______       , _______       , _______       , _______       ,                                 _______       , _______       , _______       , _______       , _______       , _______       , _______       ,\
+    _______         , KC_GRV        , KC_TILD       , KC_HASH       , KC_AMPR       , KC_PIPE       , _______       ,                                 _______       , KC_CIRC       , KC_LCBR       , KC_RCBR       , KC_LPRN       , KC_RPRN       , _______       ,\
+    _______         , KC_EXLM       , KC_UNDS       , KC_COLN       , KC_EQL        , KC_DLR        , _______       ,                                 _______       , KC_AT         , KC_LBRC       , KC_RBRC       , KC_UNDS       , KC_SCLN       , _______       ,\
+    _______         , KC_PERC       , KC_QUES       , KC_ASTR       , KC_PLUS       , KC_BSLS       , _______       , _______       , _______       , _______       , KC_SLSH       , KC_MINS       , KC_LABK       , KC_RABK       , KC_DQUO       , _______       ,\
+                                                      _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______       , _______ \
+  ),
 };
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -70,6 +85,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_LOWER]  = { ENCODER_CCW_CW(RGB_HUI, RGB_HUD), ENCODER_CCW_CW(RGB_SAI, RGB_SAD) },
     [_RAISE]  = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD), ENCODER_CCW_CW(RGB_SPI, RGB_SPD) },
     [_ADJUST] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD), ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
+    [_DEVSYM] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD), ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
 };
 
 // clang-format on
